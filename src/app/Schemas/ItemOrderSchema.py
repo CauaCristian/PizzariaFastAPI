@@ -1,8 +1,5 @@
 from pydantic import BaseModel
 
-from src.app.Schemas.OrderSchema import StatusEnum
-
-
 class ItemOrderCreate(BaseModel):
     order_id: int
     product_id: int

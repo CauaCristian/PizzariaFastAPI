@@ -1,3 +1,8 @@
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from sqlalchemy import Column, Integer, String, Float
 from src.core.database.Database import Base
 from sqlalchemy_utils import ChoiceType
@@ -17,7 +22,8 @@ class ProductModel(Base):
     size = Column("size",ChoiceType(choices=PRODUCT_SIZE),nullable=False)
     price = Column("price",Float,nullable=False)
 
-    def __init__(self, name, description, price):
+    def __init__(self, name, description,size, price):
         self.name = name
         self.description = description
+        self.size = size
         self.price = price
