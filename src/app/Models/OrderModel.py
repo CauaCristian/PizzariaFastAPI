@@ -1,15 +1,23 @@
 
 from sqlalchemy import Column, Integer, ForeignKey, String, Float
-
+from sqlalchemy_utils import ChoiceType
 from src.core.database.Database import Base
+
 class OrderModel(Base):
     __tablename__ = "order"
+
+    STATUS_ORDER = (
+        ("PENDENTE","PENDENTE"),
+        ("CANCELADO","CANCELADO"),
+        ("FINALIZADO","FINALIZADO"),
+    )
+
     id = Column("id",Integer, primary_key=True, autoincrement=True)
-    status = Column("status",String, default="PENDING",nullable=False)
+    status = Column("status",ChoiceType(choices=STATUS_ORDER),nullable=False)
     price = Column("price",Float,nullable=False,default=0)
     user_id = Column("user_id",Integer, ForeignKey("user.id"),nullable=False)
 
-    def __init__(self, status, user_id, price = 0):
+    def __init__(self, user_id, status = "PENDENTE",  price = 0):
         self.status = status
         self.user_id = user_id
         self.price = price

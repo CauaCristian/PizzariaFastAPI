@@ -4,9 +4,10 @@ from src.core.database.Database import Base
 class UserModel(Base):
 
     __tablename__ = "user"
+    
     id = Column("id",Integer, primary_key=True, autoincrement=True)
     name = Column("name",String,nullable=False)
-    email = Column("email",String,nullable=False)
+    email = Column("email",String,nullable=False,unique=True)
     password = Column("password",String,nullable=False)
     active = Column("active",Boolean,default= True,nullable=False)
     role = Column("role",String,default="user",nullable=False)

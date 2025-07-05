@@ -1,22 +1,30 @@
-from pydantic import BaseModel,EmailStr
+from pydantic import BaseModel
+
+from enum import Enum
+
+class SizeEnum(str, Enum):
+    P = "P"
+    M = "M"
+    G = "G"
 
 class ProductCreate(BaseModel):
     name: str
     description: str
+    size: SizeEnum
     price: float
-    quantity: int
+
 
 class ProductUpdate(BaseModel):
     name: str
     description: str
+    size: SizeEnum
     price: float
-    quantity: int
 
 class ProductResponse(BaseModel):
     id: int
     name: str
     description: str
+    size: SizeEnum
     price: float
-    quantity: int
     class Config:
         orm_mode = True
