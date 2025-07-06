@@ -7,6 +7,7 @@ from sqlalchemy import Column, Integer, ForeignKey, String, Float
 from src.core.database.Database import Base
 
 class OrderModel(Base):
+
     __tablename__ = "order"
 
     id = Column("id",Integer, primary_key=True, autoincrement=True)

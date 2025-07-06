@@ -7,6 +7,7 @@ from sqlalchemy import Column, Integer, String, Float
 from src.core.database.Database import Base
 
 class ProductModel(Base):
+
     __tablename__ = "product"
 
 
