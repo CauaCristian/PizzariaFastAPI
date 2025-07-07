@@ -4,10 +4,10 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from fastapi import FastAPI
-from src.api.v1.AuthController import AuthController
-from src.api.v1.UserController import UserController
-from src.api.v1.OrderController import OrderController
-from src.api.v1.ProductController import ProductController
+from src.api.v1.auth_controller import AuthController
+from src.api.v1.user_controller import UserController
+from src.api.v1.order_controller import OrderController
+from src.api.v1.product_controller import ProductController
 app = FastAPI()
 
 app.include_router(AuthController,prefix="/api/v1/auth",tags=["auth"])
