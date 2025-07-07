@@ -6,4 +6,5 @@ class AuthLogin(BaseModel):
 
 class AuthResponse(BaseModel):
     access_token: str
-    token_type: str = "bearer "
+    refresh_token: str
+    token_type: str = "bearer"

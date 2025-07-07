@@ -3,12 +3,15 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-db = create_engine(DATABASE_URL)
 Base = declarative_base()
 
-def init_session():
-    session = sessionmaker(bind=db)
-    return session()
+class DatabaseConfig:
+
+    def __init__(self):
+        load_dotenv()
+        self.database_url = os.getenv("DATABASE_URL")
+        self.db = create_engine(self.database_url)
+        self.session = sessionmaker(bind=self.db)
+
+    def init_session(self):
+        return self.session()

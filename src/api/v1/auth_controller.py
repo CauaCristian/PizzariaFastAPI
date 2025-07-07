@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from src.app.schemas.user_schema import UserCreate, UserResponse
 import os
 import sys
@@ -9,6 +10,8 @@ from src.app.schemas.auth_schema import AuthLogin, AuthResponse
 AuthController = APIRouter()
 
 authService = AuthService()
+
+security = HTTPBearer()
 
 @AuthController.get("/")
 async def hello():
@@ -21,3 +24,8 @@ async def create_user(user: UserCreate):
 @AuthController.post("/signin",response_model=AuthResponse,status_code=200)
 async def login_user(auth_login: AuthLogin):
     return authService.login_user(auth_login)
+
+@AuthController.get("/refresh",response_model=AuthResponse,status_code=200)
+async def refresh_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    token = credentials.credentials
+    return authService.refresh_token(token)

@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter , Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import os
 import sys
 
@@ -8,11 +9,12 @@ from src.app.services.order_service import OrderService
 
 OrderController = APIRouter()
 orderService = OrderService()
+security = HTTPBearer()
 
 @OrderController.get("/")
 async def hello():
     return {"message": "order Router"}
 
 @OrderController.post("/create",response_model=OrderResponse,status_code=200)
-async def create_order(order: OrderCreate):
-    return orderService.create_order(order)
+async def create_order(order: OrderCreate, credentials: HTTPAuthorizationCredentials = Depends(security)):
+    return orderService.create_order(order, credentials.credentials)
