@@ -5,10 +5,11 @@ from sqlalchemy.exc import SQLAlchemyError
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+from src.core.security.Bcrypt import hash_password,verify_password
 from fastapi import HTTPException
-from src.app.Repositories import UserRepository
-from src.app.Models.UserModel import UserModel
-from src.app.Schemas import UserSchema
+from src.app.repositories import UserRepository
+from src.app.models.UserModel import UserModel
+from src.app.schemas import UserSchema
 
 def create_user(user_schema: UserSchema.UserCreate):
     try:
@@ -21,7 +22,7 @@ def create_user(user_schema: UserSchema.UserCreate):
         user = UserModel(
             name=user_schema.name,
             email=user_schema.email,
-            password=user_schema.password
+            password= hash_password(user_schema.password),
         )
         user = UserRepository.save_user(user)
         return UserSchema.UserResponse.from_orm(user)

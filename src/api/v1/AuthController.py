@@ -1,9 +1,9 @@
 from fastapi import APIRouter
-from src.app.Schemas.UserSchema import UserCreate, UserResponse
+from src.app.schemas.UserSchema import UserCreate, UserResponse
 import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from src.app.Services import AuthService
+from src.app.services import AuthService
 
 AuthController = APIRouter()
 
