@@ -13,10 +13,6 @@ authService = AuthService()
 
 security = HTTPBearer()
 
-@AuthController.get("/")
-async def hello():
-    return {"message": "auth Router"}
-
 @AuthController.post("/signup",response_model=UserResponse,status_code=200)
 async def create_user(user: UserCreate):
     return authService.create_user(user)

@@ -11,10 +11,6 @@ OrderController = APIRouter()
 orderService = OrderService()
 security = HTTPBearer()
 
-@OrderController.get("/")
-async def hello():
-    return {"message": "order Router"}
-
 @OrderController.post("/create",response_model=OrderResponse,status_code=200)
-async def create_order(order: OrderCreate, credentials: HTTPAuthorizationCredentials = Depends(security)):
+async def create_order(order: OrderCreate, credentials: HTTPAuthorizationCredentials = Depends(security),response_model=OrderResponse):
     return orderService.create_order(order, credentials.credentials)

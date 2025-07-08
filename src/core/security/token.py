@@ -40,3 +40,19 @@ class Token:
             return payload
         except JWTError as e:
             raise HTTPException(status_code=400, detail=f"Token inválido ou expirado: {e}") from e
+
+    def verify_user_permission(self, id1: int, id2: int):
+        if id1!= id2:
+            raise HTTPException(status_code=400, detail="Usuário não autorizado a utilizar esta rota.")
+        return True
+
+    def verify_role_permission(self, token: str, required_role: str):
+        try:
+            payload = self.verify_token(token)
+            if payload["role"] != required_role:
+                raise HTTPException(status_code=403, detail="Permissão negada.")
+            return payload
+        except HTTPException as e:
+            raise HTTPException(status_code=e.status_code, detail=e.detail) from e
+        except JWTError as e:
+            raise HTTPException(status_code=400, detail=f"Erro ao verificar permissão: {e}") from e

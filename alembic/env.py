@@ -27,7 +27,7 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from src.app.models import product_model, user_model, order_model, item_orderModel
+from src.app.models import product_model, user_model, order_model, item_order_model
 from src.core.database.database import Base
 target_metadata = Base.metadata
 
