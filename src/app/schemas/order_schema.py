@@ -25,6 +25,5 @@ class OrderResponse(BaseModel):
     price: float
     user_id: int
     itemsOrder: list[ItemOrderResponse]
-    model_config = ConfigDict(from_attributes=True)
 
 
